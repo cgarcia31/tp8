@@ -43,7 +43,7 @@ pipeline {
            }
       }
 
-	stage('scan with trivy') {
+	stage('test imagewith trivy') {
 		agent any
 		steps {
 			sh "trivy image -f json -o results.json ${ID_DOCKER}/${IMAGE_NAME}:${IMAGE_TAG}"
@@ -51,6 +51,13 @@ pipeline {
 			}
 	}
 
+	stage('test security trivy'){
+		agent any
+               steps {
+                  sh "trivy fs -f json -o security-results.json --security-checks secret ./"
+                  recordIssues(tools: [trivy(pattern: 'security-results.json')])
+  		}
+	}
       stage('Clean Container') {
           agent any
           steps {
