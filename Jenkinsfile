@@ -47,7 +47,7 @@ pipeline {
 		steps {
 			sh "trivy  image --severity CRITICAL -f json -o results-image.json ${ID_DOCKER}/${IMAGE_NAME}:${IMAGE_TAG}"
 			recordIssues(tools: [trivy(pattern: '*.json')])
-			def statusCode = sh(script: "exit `cat result-image.json | grep Vulnerabilities|wc -l`", returnStatus:true)
+			def statusCode = sh script: "exit `cat result-image.json | grep Vulnerabilities|wc -l`", returnStatus:true
 			}
 	}
 	/*
