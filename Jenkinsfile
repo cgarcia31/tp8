@@ -58,6 +58,15 @@ pipeline {
                   recordIssues(tools: [trivy(pattern: 'security-results.json')])
   		}
 	}
+	stage('test webapp repo"){
+		agent any
+		steps {
+			sh "trivy -f json -o security_repo_git.json repo https://github.com/diranetafen/static-website-example.git"
+			recordIssues(tools :[trivy(pattern: 'security_repo_git.json')])
+		}
+	}
+	
+
       stage('Clean Container') {
           agent any
           steps {
