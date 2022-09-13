@@ -54,7 +54,7 @@ pipeline {
 	stage('test security trivy'){
 		agent any
                steps {
-                  sh "trivy fs -f json -o security-results.json --security-checks secret ./"
+                  sh "trivy fs -f json -o security-results.json --security-checks vuln,secret,config ./"
                   recordIssues(tools: [trivy(pattern: 'security-results.json')])
   		}
 	}
