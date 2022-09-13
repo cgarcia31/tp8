@@ -45,7 +45,7 @@ pipeline {
 	stage('test imagewith trivy') {
 		agent any
 		steps {
-			sh "trivy image -f json -o results-image.json ${ID_DOCKER}/${IMAGE_NAME}:${IMAGE_TAG}"
+			sh "trivy --vuln-type os image -f json -o results-image.json ${ID_DOCKER}/${IMAGE_NAME}:${IMAGE_TAG}"
 			recordIssues(tools: [trivy(pattern: '*.json')])
 			}
 	}
