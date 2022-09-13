@@ -54,15 +54,15 @@ pipeline {
 	stage('test security trivy'){
 		agent any
                steps {
-                  sh "trivy fs -f json -o security-results.json --security-checks vuln,secret,config ./"
-                  recordIssues(tools: [trivy(pattern: 'security-results.json')])
+                  sh "trivy fs -f json -o results.json --security-checks vuln,secret,config ./"
+                  recordIssues(tools: [trivy(pattern: 'results.json')])
   		}
 	}
 	stage('test webapp repo'){
 		agent any
 		steps {
-			sh "trivy -f json -o security_repo_git.json repo https://github.com/diranetafen/static-website-example.git"
-			recordIssues(tools :[trivy(pattern: 'security_repo_git.json')])
+			sh "trivy -f json -o results.json repo https://github.com/diranetafen/static-website-example.git"
+			recordIssues(tools: [trivy(pattern: 'results.json')])
 		}
 	}
 	
