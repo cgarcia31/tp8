@@ -62,7 +62,7 @@ pipeline {
 		agent any
 		steps {
 			sh "trivy -f json -o results.json repo https://github.com/diranetafen/static-website-example.git"
-			recordIssues(tools: [trivy(pattern: 'results.json')])
+                  	recordIssues(tools: [trivy(pattern: 'results.json')])
 		}
 	}
 	
