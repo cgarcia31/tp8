@@ -42,19 +42,18 @@ pipeline {
               }
            }
       }
-/*
 	stage('test imagewith trivy') {
 		agent any
 		steps {
-			sh "trivy image -f json -o results.json ${ID_DOCKER}/${IMAGE_NAME}:${IMAGE_TAG}"
-			recordIssues(tools: [trivy(pattern: 'results.json')])
+			sh "trivy image -f json -o results-image.json ${ID_DOCKER}/${IMAGE_NAME}:${IMAGE_TAG}"
+			recordIssues(tools: [trivy(pattern: '*.json')])
 			}
 	}
-*/
+	/*
 	stage('test security trivy'){
 		agent any
                steps {
-                  sh "trivy fs -f json -o results.json --security-checks vuln,secret,config ./"
+                  sh "trivy fs -f json -o results-local.json --security-checks vuln,secret,config ./"
                   recordIssues(tools: [trivy(pattern: 'results.json')])
   		}
 	}
@@ -65,7 +64,7 @@ pipeline {
                   	recordIssues(tools: [trivy(pattern: 'results.json')])
 		}
 	}
-	
+	*/
 
       stage('Clean Container') {
           agent any
