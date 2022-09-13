@@ -47,7 +47,9 @@ pipeline {
 		steps {
 			sh "trivy  image --severity CRITICAL -f json -o results-image.json ${ID_DOCKER}/${IMAGE_NAME}:${IMAGE_TAG}"
 			recordIssues(tools: [trivy(pattern: '*.json')])
-			sh "exit `cat result-image.json | grep Vulnerabilities|wc -l`"
+			failover(
+				sh "exit `cat result-image.json | grep Vulnerabilities|wc -l`"
+			)
 			}
 	}
 	/*
