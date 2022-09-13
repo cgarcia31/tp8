@@ -42,7 +42,14 @@ pipeline {
               }
            }
       }
-
+	stage('scan with trivy') {
+		steps {
+			sh "trivy image -f json -o results.json ${ID_DOCKER}/${IMAGE_NAME}:${IMAGE_TAG}"
+			recordIssues(tools: [trivy(pattern: 'results.json')])
+			}
+	}
+							              }
+								              }
       stage('Clean Container') {
           agent any
           steps {
