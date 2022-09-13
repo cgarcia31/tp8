@@ -42,7 +42,7 @@ pipeline {
               }
            }
       }
-
+/*
 	stage('test imagewith trivy') {
 		agent any
 		steps {
@@ -50,7 +50,7 @@ pipeline {
 			recordIssues(tools: [trivy(pattern: 'results.json')])
 			}
 	}
-
+*/
 	stage('test security trivy'){
 		agent any
                steps {
