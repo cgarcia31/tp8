@@ -14,8 +14,6 @@ pipeline {
              steps {
                 script {
                   sh '''
-					echo "Check dockerfile"
-					docker run --rm -i hadolint/hadolint < Dockerfile 
 		  	                echo "Build du container"
  			                docker build -t ${ID_DOCKER}/${IMAGE_NAME}:${IMAGE_TAG} .
 		              '''
