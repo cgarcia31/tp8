@@ -45,9 +45,8 @@ pipeline {
 	stage('test imagewith trivy') {
 		agent any
 		steps {
-			sh "trivy  image --severity TOTO -f json -o results-image.json ${ID_DOCKER}/${IMAGE_NAME}:${IMAGE_TAG}"
+			sh "trivy --exit-code 1  image --severity TOTO -f json -o results-image.json ${ID_DOCKER}/${IMAGE_NAME}:${IMAGE_TAG}"
 			recordIssues(tools: [trivy(pattern: '*.json')])
-			sh 'cat results-image.json | not grep -q Vulnerabilities'
 			}
 	}
 	/*
