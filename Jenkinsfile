@@ -49,6 +49,9 @@ pipeline {
 			recordIssues(tools: [trivy(pattern: '*.json')])
 			script{
 				def statusCode = sh script: "exit `cat result-image.json | grep Vulnerabilities|wc -l`", returnStatus:true
+				if ( statusCode != "0" ){
+					error 'CRITICAL Vuln found'
+				}
 			}
 			}
 	}
